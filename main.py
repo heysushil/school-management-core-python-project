@@ -33,6 +33,19 @@ def choices():
         else:
             print('\nAap ne galt input diya hai. Dubara sahi input choice ke sath try kare.')
 
+# Create new class fucntion:
+def create_new_class(school_name):
+    # get class name
+    class_name = input('Enter new class name: ')
+    # first add school name on school list file
+    add_class_name = open('schools/' + school_name + '/class_list.txt', 'a')
+    add_class_name.write('\n'+class_name)
+    add_class_name.close()
+    # school_name se hi folder create karna hai
+    os.mkdir('schools/'+ school_name + '/' + class_name)
+
+    print('\nBadhai ho new class ' + class_name + ' create ho gaya hai.\n')
+
 # Fucntion class choice ke liye
 def class_choice(school_name):
     message = '''
@@ -56,7 +69,7 @@ def class_choice(school_name):
         print('\nInput me koi problem aai hai. Kripya sahi input ke sath dubara try kare?')
     else:
         if option == 1:
-            print('\nCreate New Class')
+            create_new_class(school_name)
         elif option == 2:
             print('\nChoose existing Class')
         elif option == 3:
