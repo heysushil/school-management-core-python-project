@@ -1,5 +1,8 @@
 # Ye main file hai yaha par hi sare code kiye gaye hain
 
+# os libaryr for creating file and folder
+import os
+
 # again choice show karne ke liye function bana rahe hain
 def choices():
     message = '''
@@ -30,9 +33,51 @@ def choices():
         else:
             print('\nAap ne galt input diya hai. Dubara sahi input choice ke sath try kare.')
 
+# Fucntion class choice ke liye
+def class_choice(school_name):
+    message = '''
+    ---------------------------------
+        School {0}
+    ---------------------------------
+    1. Create New Class
+    2. Choose existing Class
+    3. Exit
+    ---------------------------------
+    Only enter numbers:         
+    '''.format(school_name)
+
+    try:
+        option = int(input(message))
+    except ValueError:
+        print('\nAap ne number ki jagah kuch aur input kiya hai. Kripya sahi input ke sath dubara try kare?')
+    except NameError:
+        print('\nAap ne alphabet input kiya hai jo ki galat hai. Sahi input ke sath dubara try kariye?')
+    except:
+        print('\nInput me koi problem aai hai. Kripya sahi input ke sath dubara try kare?')
+    else:
+        if option == 1:
+            print('\nCreate New Class')
+        elif option == 2:
+            print('\nChoose existing Class')
+        elif option == 3:
+            print('\nAap safalta purvak exit kar chuke hain.')
+        else:
+            print('\nAap ne galt input diya hai. Dubara sahi input choice ke sath try kare.')
+
 # Create new school fucntion: Yaha par ek school ke name se folder create hoga. And school ka name ek school_list.txt file me addon bhi hoga.
 def create_new_school():
-    print('\nCreate New School')
+    # get school name
+    school_name = input('Enter new school name: ')
+    # first add school name on school list file
+    add_school_name = open('school_list.txt', 'a')
+    add_school_name.write('\n'+school_name)
+    add_school_name.close()
+    # school_name se hi folder create karna hai
+    os.mkdir('schools/'+school_name)
+
+    print('\nBadhai ho new school ' + school_name + ' create ho gaya hai.\n')
+    # New school create hone ke baad me class ke option ke fucniton ko call karna hai.
+    class_choice(school_name)
 
 # Choose school fucntion: Yaha se existing school folder ke andar enter honge.
 def choose_school():
