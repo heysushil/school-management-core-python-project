@@ -81,16 +81,23 @@ def class_choice(school_name):
 def create_new_school():
     # get school name
     school_name = input('Enter new school name: ')
-    # first add school name on school list file
-    add_school_name = open('school_list.txt', 'a')
-    add_school_name.write('\n'+school_name)
-    add_school_name.close()
-    # school_name se hi folder create karna hai
-    os.mkdir('schools/'+school_name)
+    # os path exists error check
+    myfolderpath = 'schools/'+school_name
+    if os.path.exists(myfolderpath):
+        print('\nYe school ' + school_name + ' pahle se hi hai.\nYe sabhi existing schools ke name hain.\nInme se jis school me enter karna hai wo option input kariye?')
+    else:
+        # first add school name on school list file
+        add_school_name = open('school_list.txt', 'a')
+        add_school_name.write('\n'+school_name)
+        add_school_name.close()
 
-    print('\nBadhai ho new school ' + school_name + ' create ho gaya hai.\n')
-    # New school create hone ke baad me class ke option ke fucniton ko call karna hai.
-    class_choice(school_name)
+        # school_name se hi folder create karna hai
+        os.mkdir('schools/'+school_name)
+
+        print('\nBadhai ho new school ' + school_name + ' create ho gaya hai.\n')
+
+        # New school create hone ke baad me class ke option ke fucniton ko call karna hai.
+        class_choice(school_name)
 
 # Choose school fucntion: Yaha se existing school folder ke andar enter honge.
 def choose_school():
