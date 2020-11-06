@@ -101,7 +101,29 @@ def create_new_school():
 
 # Choose school fucntion: Yaha se existing school folder ke andar enter honge.
 def choose_school():
-    print('\nChoose school.')
+    # first get school_list.txt file
+    get_school_list_file = open('school_list.txt', 'r')
+    get_schools_in_list = get_school_list_file.readlines()
+    # use for loop to show number and school name
+    print('\nHello Admin,\nYe hamari existing school list hai.\nJis school me enter karna hai us number ko enter kariye: \n')
+    # blank list to get all school names
+    school_list_for_options = []
+    for i, name in enumerate(get_schools_in_list, start=1):
+        # name.strip() method use to remove starting or ending space of special char
+        print('{} {}'.format(i, name.strip()))
+        school_list_for_options.append(name.strip())
+    get_school_list_file.close()
+
+    # get school name by admin
+    # print(school_list_for_options)
+
+    # Here need to handel error when admin tring to enter non numeric number of outof range number
+    option = int(input('\nEnter school number: '))
+    # print('\nAdmin option: ', school_list_for_options[option-1])
+    # call chooce class options function
+    school_name = school_list_for_options[option-1]
+    class_choice(school_name)
+
 
 # First 2 option admin ko dene hai
 message = '''
