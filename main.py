@@ -118,6 +118,8 @@ def choose_school():
     # print(school_list_for_options)
 
     # Here need to handel error when admin tring to enter non numeric number of outof range number
+    # then create function for choose available class on existing school
+
     option = int(input('\nEnter school number: '))
     # print('\nAdmin option: ', school_list_for_options[option-1])
     # call chooce class options function
