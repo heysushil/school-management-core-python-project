@@ -4,7 +4,7 @@
 import os
 
 # again choice show karne ke liye function bana rahe hain
-def choices():
+def school_choices():
     message = '''
     ---------------------------------
             Welcome Admin
@@ -46,8 +46,51 @@ def create_new_class(school_name):
 
     print('\nBadhai ho new class ' + class_name + ' create ho gaya hai.\n')
 
+# Class choose:
+def choose_class(school_name):
+    # first get class_list.txt file form school folder
+    get_class_list_file = open('schools/heysushil/class_list.txt', 'r')
+    get_classes_in_list = get_class_list_file.readlines()
+    # use for loop to show number and school name
+    print('\nHello Admin,\nYe hamari existing classes list hai.\nJis class me enter karna hai us number ko enter kariye: \n')
+    # blank list to get all class names
+    class_list_for_options = []
+    for i, name in enumerate(get_classes_in_list, start=1):
+        # name.strip() method use to remove starting or ending space of special char
+        print('{} {}'.format(i, name.strip()))
+        class_list_for_options.append(name.strip())
+    get_class_list_file.close()
+
+    # get class name by admin
+    print(class_list_for_options)
+    exit()
+
+    # Here need to handel error when admin tring to enter non numeric number of outof range number
+    # then create function for choose available class on existing school
+
+    # use try except to handle probel
+    try:
+        option = int(input('\nEnter school number: '))
+    except ValueError:
+        print('\nAap ne number ki jagah kuch aur input kiya hai. Kripya sahi input ke sath dubara try kare?')
+        # call choices function
+        school_choices()
+    except NameError:
+        print('\nAap ne alphabet input kiya hai jo ki galat hai. Sahi input ke sath dubara try kariye?')
+        # call choices function
+        school_choices()
+    except:
+        print('\nInput me koi problem aai hai. Kripya sahi input ke sath dubara try kare?')
+        # call choices function
+        school_choices()
+    else:
+        # print('\nAdmin option: ', school_list_for_options[option-1])
+        # call chooce class options function
+        school_name = school_list_for_options[option-1]
+        class_choices(school_name)
+
 # Fucntion class choice ke liye
-def class_choice(school_name):
+def class_choices(school_name):
     message = '''
     ---------------------------------
         School {0}
@@ -71,7 +114,7 @@ def class_choice(school_name):
         if option == 1:
             create_new_class(school_name)
         elif option == 2:
-            print('\nChoose existing Class')
+            choose_class(school_name)
         elif option == 3:
             print('\nAap safalta purvak exit kar chuke hain.')
         else:
@@ -97,7 +140,7 @@ def create_new_school():
         print('\nBadhai ho new school ' + school_name + ' create ho gaya hai.\n')
 
         # New school create hone ke baad me class ke option ke fucniton ko call karna hai.
-        class_choice(school_name)
+        class_choices(school_name)
 
 # Choose school fucntion: Yaha se existing school folder ke andar enter honge.
 def choose_school():
@@ -126,20 +169,20 @@ def choose_school():
     except ValueError:
         print('\nAap ne number ki jagah kuch aur input kiya hai. Kripya sahi input ke sath dubara try kare?')
         # call choices function
-        choices()
+        school_choices()
     except NameError:
         print('\nAap ne alphabet input kiya hai jo ki galat hai. Sahi input ke sath dubara try kariye?')
         # call choices function
-        choices()
+        school_choices()
     except:
         print('\nInput me koi problem aai hai. Kripya sahi input ke sath dubara try kare?')
         # call choices function
-        choices()
+        school_choices()
     else:
         # print('\nAdmin option: ', school_list_for_options[option-1])
         # call chooce class options function
         school_name = school_list_for_options[option-1]
-        class_choice(school_name)
+        class_choices(school_name)
 
 
 # First 2 option admin ko dene hai
@@ -158,15 +201,15 @@ try:
 except ValueError:
     print('\nAap ne number ki jagah kuch aur input kiya hai. Kripya sahi input ke sath dubara try kare?')
     # call choices function
-    choices()
+    school_choices()
 except NameError:
     print('\nAap ne alphabet input kiya hai jo ki galat hai. Sahi input ke sath dubara try kariye?')
     # call choices function
-    choices()
+    school_choices()
 except:
     print('\nInput me koi problem aai hai. Kripya sahi input ke sath dubara try kare?')
     # call choices function
-    choices()
+    school_choices()
 else:
     if option == 1:
         # print('\nCreate New School')
@@ -179,4 +222,4 @@ else:
     else:
         print('\nAap ne galt input diya hai. Dubara sahi input choice ke sath try kare.')
         # call choices function
-        choices()
+        school_choices()
