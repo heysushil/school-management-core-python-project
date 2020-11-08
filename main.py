@@ -55,39 +55,51 @@ def choose_class(school_name):
     print('\nHello Admin,\nYe hamari existing classes list hai.\nJis class me enter karna hai us number ko enter kariye: \n')
     # blank list to get all class names
     class_list_for_options = []
-    for i, name in enumerate(get_classes_in_list, start=1):
+    # for i, name in enumerate(get_classes_in_list, start=1):
+    i = 1
+    for name in get_classes_in_list:
         # name.strip() method use to remove starting or ending space of special char
-        print('{} {}'.format(i, name.strip()))
-        class_list_for_options.append(name.strip())
+        
+        # use condtion to handle blank data
+        if bool(name.strip()) == True:
+            print('{} {} Class'.format(i, name.strip()))
+            i += 1 # for showing continus number on list
+            class_list_for_options.append(name.strip())
     get_class_list_file.close()
 
     # get class name by admin
-    print(class_list_for_options)
-    exit()
+    # print(class_list_for_options)
+    # exit()
 
     # Here need to handel error when admin tring to enter non numeric number of outof range number
     # then create function for choose available class on existing school
 
     # use try except to handle probel
     try:
-        option = int(input('\nEnter school number: '))
+        option = int(input('\nEnter class number: '))
     except ValueError:
         print('\nAap ne number ki jagah kuch aur input kiya hai. Kripya sahi input ke sath dubara try kare?')
         # call choices function
-        school_choices()
+        class_choices(school_name)
     except NameError:
         print('\nAap ne alphabet input kiya hai jo ki galat hai. Sahi input ke sath dubara try kariye?')
         # call choices function
-        school_choices()
+        class_choices(school_name)
     except:
         print('\nInput me koi problem aai hai. Kripya sahi input ke sath dubara try kare?')
         # call choices function
-        school_choices()
+        class_choices(school_name)
     else:
         # print('\nAdmin option: ', school_list_for_options[option-1])
         # call chooce class options function
-        school_name = school_list_for_options[option-1]
-        class_choices(school_name)
+        class_name = class_list_for_options[option-1]
+        
+        # Ab class ke andar jo options show karne hai unka function
+        student_options_in_class(class_name)
+
+# Ye ek class ke andar hone wale activites ka function hai
+def student_options_in_class(class_name):
+    print('\nHello admin welcome to ', class_name , ' class.')
 
 # Fucntion class choice ke liye
 def class_choices(school_name):
