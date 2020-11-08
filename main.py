@@ -25,9 +25,9 @@ def choices():
         print('\nInput me koi problem aai hai. Kripya sahi input ke sath dubara try kare?')
     else:
         if option == 1:
-            print('\nCreate New School')
+            create_new_school()
         elif option == 2:
-            print('\nChoose existing School')
+            choose_school()
         elif option == 3:
             print('\nAap safalta purvak exit kar chuke hain.')
         else:
@@ -120,11 +120,26 @@ def choose_school():
     # Here need to handel error when admin tring to enter non numeric number of outof range number
     # then create function for choose available class on existing school
 
-    option = int(input('\nEnter school number: '))
-    # print('\nAdmin option: ', school_list_for_options[option-1])
-    # call chooce class options function
-    school_name = school_list_for_options[option-1]
-    class_choice(school_name)
+    # use try except to handle probel
+    try:
+        option = int(input('\nEnter school number: '))
+    except ValueError:
+        print('\nAap ne number ki jagah kuch aur input kiya hai. Kripya sahi input ke sath dubara try kare?')
+        # call choices function
+        choices()
+    except NameError:
+        print('\nAap ne alphabet input kiya hai jo ki galat hai. Sahi input ke sath dubara try kariye?')
+        # call choices function
+        choices()
+    except:
+        print('\nInput me koi problem aai hai. Kripya sahi input ke sath dubara try kare?')
+        # call choices function
+        choices()
+    else:
+        # print('\nAdmin option: ', school_list_for_options[option-1])
+        # call chooce class options function
+        school_name = school_list_for_options[option-1]
+        class_choice(school_name)
 
 
 # First 2 option admin ko dene hai
@@ -142,10 +157,16 @@ try:
     option = int(input(message))
 except ValueError:
     print('\nAap ne number ki jagah kuch aur input kiya hai. Kripya sahi input ke sath dubara try kare?')
+    # call choices function
+    choices()
 except NameError:
     print('\nAap ne alphabet input kiya hai jo ki galat hai. Sahi input ke sath dubara try kariye?')
+    # call choices function
+    choices()
 except:
     print('\nInput me koi problem aai hai. Kripya sahi input ke sath dubara try kare?')
+    # call choices function
+    choices()
 else:
     if option == 1:
         # print('\nCreate New School')
@@ -157,3 +178,5 @@ else:
         print('\nAap safalta purvak exit kar chuke hain.')
     else:
         print('\nAap ne galt input diya hai. Dubara sahi input choice ke sath try kare.')
+        # call choices function
+        choices()
