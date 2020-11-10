@@ -2,6 +2,7 @@
 
 # os libaryr for creating file and folder
 import os
+import students_related_work as student
 
 # again choice show karne ke liye function bana rahe hain
 def school_choices():
@@ -97,9 +98,51 @@ def choose_class(school_name):
         # Ab class ke andar jo options show karne hai unka function
         student_options_in_class(class_name)
 
+
+
 # Ye ek class ke andar hone wale activites ka function hai
 def student_options_in_class(class_name):
-    print('\nHello admin welcome to ', class_name , ' class.')
+    message = '''
+    ---------------------------------
+                {0} Class
+    ---------------------------------
+    1. Register New Student
+    2. Check Student Details
+    3. Update Student Detail
+    4. Delete Student
+    5. Exit
+    ---------------------------------
+    Only enter numbers:         
+    '''.format(class_name)
+    try:
+        option = int(input(message))
+    except ValueError:
+        print('\nAap ne number ki jagah kuch aur input kiya hai. Kripya sahi input ke sath dubara try kare?')
+        # call choices function
+        # school_choices()
+    except NameError:
+        print('\nAap ne alphabet input kiya hai jo ki galat hai. Sahi input ke sath dubara try kariye?')
+        # call choices function
+        # school_choices()
+    except:
+        print('\nInput me koi problem aai hai. Kripya sahi input ke sath dubara try kare?')
+        # call choices function
+        # school_choices()
+    else:
+        if option == 1:
+            student.register_new_student(class_name)
+        elif option == 2:
+            student.check_student_detail(class_name)
+        elif option == 3:
+            student.update_student_detail(class_name)
+        elif option == 4:
+            student.delete_student(class_name)
+        elif option == 5:
+            print('\nAdmin aap safalta purvak exit kar chuke hain.')
+        else:
+            print('\nAap ne galt input diya hai. Dubara sahi input choice ke sath try kare.')
+            # call choices function
+            # school_choices()
 
 # Fucntion class choice ke liye
 def class_choices(school_name):
