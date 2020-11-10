@@ -96,12 +96,12 @@ def choose_class(school_name):
         class_name = class_list_for_options[option-1]
         
         # Ab class ke andar jo options show karne hai unka function
-        student_options_in_class(class_name)
+        student_options_in_class(school_name, class_name)
 
 
 
 # Ye ek class ke andar hone wale activites ka function hai
-def student_options_in_class(class_name):
+def student_options_in_class(school_name, class_name):
     message = '''
     ---------------------------------
                 {0} Class
@@ -130,7 +130,7 @@ def student_options_in_class(class_name):
         # school_choices()
     else:
         if option == 1:
-            student.register_new_student(class_name)
+            student.register_new_student(school_name, class_name)
         elif option == 2:
             student.check_student_detail(class_name)
         elif option == 3:
