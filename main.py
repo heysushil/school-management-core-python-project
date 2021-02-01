@@ -200,6 +200,9 @@ def create_new_school():
 # Choose school fucntion: Yaha se existing school folder ke andar enter honge.
 def choose_school():
     # first get school_list.txt file
+    import os
+    # os.path
+    # working_directory = os.getcwd()
     get_school_list_file = open('school_list.txt', 'r')
     get_schools_in_list = get_school_list_file.readlines()
     # use for loop to show number and school name
