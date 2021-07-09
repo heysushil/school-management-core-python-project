@@ -32,9 +32,9 @@ def student_options_in_class(school_name, class_name):
         if option == 1:
             register_new_student(school_name, class_name)
         elif option == 2:
-            check_student_detail(class_name)
+            check_student_detail(school_name, class_name)
         elif option == 3:
-            update_student_detail(class_name)
+            update_student_detail(school_name, class_name)
         elif option == 4:
             delete_student(class_name)
         elif option == 5:
@@ -117,11 +117,128 @@ def register_new_student(school_name, class_name):
         print('\nNew student registration safalta purvas ho chuka hai.\n\n')
         student_options_in_class(school_name, class_name)
 
-def check_student_detail(class_name):
-    roll_number = int(input('\nEnter student roll number: '))
+def get_student_data_by_rollnumber(school_name, class_name, roll_number):
+    # student_details name ki file ko read mode me open kiya, taki is file me se roll number get kiya ja sake.
+        get_studnet_details = open('schools/'+school_name+'/'+class_name+'/student_details.txt', 'r')
+        get_roll_number = get_studnet_details.readlines()
 
-def update_student_detail(class_name):
-    print('\nupdate_student_detail(class_name): ', class_name)
+        # print('\nCheck get all roll numebr: ', get_roll_number)
+        # exit()
+        # loop me individula roll number ko get karna hai
+        get_individual_rn = []
+        for r in get_roll_number:
+            # print('Type: ', type(json.loads(r)))
+            all_rn_as_dict = json.loads(r)
+            get_single_roll_number = all_rn_as_dict['roll_number']
+            # print('\nRoll number: ', get_single_roll_number)
+
+            # ab existing roll number me se new roll number ko check karn ahai using condition
+            if roll_number == get_single_roll_number:
+                message = '\nIs student ki sari details: => \n\n'
+                # register_new_student(school_name, class_name)
+                return all_rn_as_dict
+
+        # return print('\nTHis is studnets roll number: ', roll_number)        
+
+# existing studnet ki detail ko dekhne ke liye hame kya chaiye
+# school name, class name, roll number
+def check_student_detail(school_name, class_name):
+    roll_number = int(input('\nEnter student roll number: '))
+    result = get_student_data_by_rollnumber(school_name, class_name, roll_number)
+    print('''
+    ----------------------------------
+            Student Details
+    ----------------------------------
+    Roll Number  : {}         
+    Student Name : {}      
+    Class Name   : {}    
+    Father's Name: {}       
+    Mother's Name: {}       
+    Mobile Number: {}       
+    Address      : {} 
+    ----------------------------------
+    '''.format(result['roll_number'], result['name'], result['my_class_name'], result['father_name'], result['mother_name'], result['mobile'], result['address']))
+
+    return result
+
+    # student name: name
+    # father name: f name
+
+# student update data ke liye option ka function
+def choose_student_update_options(school_name, class_name, student_data):
+    message = '''
+    ---------------------------------
+                {} student's detail
+    ---------------------------------       
+    1. Student Name  : {}          
+    2. Class Name    : {}        
+    3. Father's Name : {}           
+    4. Mother's Name : {}           
+    5. Mobile Number : {}           
+    6. Address       : {}     
+    -------------------------
+    Only enter numbers:         
+    '''.format(student_data['name'],student_data['name'], student_data['my_class_name'], student_data['father_name'], student_data['mother_name'], student_data['mobile'], student_data['address'])
+    try:
+        option = int(input(message))
+    except ValueError:
+        print('\nAap ne number ki jagah kuch aur input kiya hai. Kripya sahi input ke sath dubara try kare?')
+        # call choices function
+        # school_choices()
+    except NameError:
+        print('\nAap ne alphabet input kiya hai jo ki galat hai. Sahi input ke sath dubara try kariye?')
+        # call choices function
+        # school_choices()
+    except:
+        print('\nInput me koi problem aai hai. Kripya sahi input ke sath dubara try kare?')
+        # call choices function
+        # school_choices()
+    else:
+        if option == 1:
+            updated_student_name = input('\n Enter students right name: ')
+            # open file with write mode.
+            get_studnet_details = open('schools/'+school_name+'/'+class_name+'/student_details.txt', 'r')
+            get_roll_number = get_studnet_details.readlines()
+
+            for r in get_roll_number:
+                # print('Type: ', type(json.loads(r)))
+                all_rn_as_dict = json.loads(r)
+                get_single_roll_number = all_rn_as_dict['roll_number']
+                # print('\nRoll number: ', get_single_roll_number)
+
+                # ab existing roll number me se new roll number ko check karn ahai using condition
+                if student_data['roll_number'] == get_single_roll_number:
+                    message = '\nStudent mil gaya hai jiski detail ko update karna hai: Exisiting name: => ', student_data['name'] , 'Update kare wala name:', updated_student_name
+                    print('\n', message)
+                    # register_new_student(school_name, class_name)
+                    # return all_rn_as_dict
+        elif option == 2:
+            print('\n elif option == 2:')
+        elif option == 3:
+            print('\n elif option == 3:')
+        elif option == 4:
+            print('\n elif option == 4:')
+        elif option == 5:
+            print('\n elif option == 5:')
+        elif option == 6:
+            print('\n elif option == 6:')
+        else:
+            print('\n sahi option nahi chuna')
+            # call choices function
+            # school_choices()
+
+            # @heysushil
+
+
+# yaha par bhi ham ko sabse pahle school name aur class name cahiye hai aur sath me roll number bhi cahiye hai.
+def update_student_detail(school_name, class_name):
+    # print('\nSchool name: ', school_name)
+    # print('\nClass name: ', class_name)
+    get_student_data = check_student_detail(school_name, class_name)
+    print('\nKya get sutdent data mila: \n\n', get_student_data)
+
+    # option create karna hai ki kaunsa detail update karna hai uske liye.
+    choose_student_update_options(school_name, class_name, get_student_data)
 
 def delete_student(class_name):
     print('\ndelete_student(class_name): ', class_name)

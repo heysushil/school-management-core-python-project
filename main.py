@@ -132,9 +132,9 @@ def student_options_in_class(school_name, class_name):
         if option == 1:
             student.register_new_student(school_name, class_name)
         elif option == 2:
-            student.check_student_detail(class_name)
+            student.check_student_detail(school_name, class_name)
         elif option == 3:
-            student.update_student_detail(class_name)
+            student.update_student_detail(school_name, class_name)
         elif option == 4:
             student.delete_student(class_name)
         elif option == 5:
