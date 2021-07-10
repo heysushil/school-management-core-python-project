@@ -199,12 +199,11 @@ def choose_student_update_options(school_name, class_name, student_data):
             # open file with write mode.
             get_studnet_details = open('schools/'+school_name+'/'+class_name+'/student_details.txt', 'r')
             get_roll_number = get_studnet_details.readlines()
-
             for r in get_roll_number:
                 # print('Type: ', type(json.loads(r)))
                 all_rn_as_dict = json.loads(r)
                 get_single_roll_number = all_rn_as_dict['roll_number']
-                # print('\nRoll number: ', get_single_roll_number)
+                print('\nRoll number: ', get_single_roll_number)
 
                 # ab existing roll number me se new roll number ko check karn ahai using condition
                 if student_data['roll_number'] == get_single_roll_number:
