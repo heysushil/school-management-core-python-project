@@ -203,7 +203,7 @@ def choose_student_update_options(school_name, class_name, student_data):
                 # print('Type: ', type(json.loads(r)))
                 all_rn_as_dict = json.loads(r)
                 get_single_roll_number = all_rn_as_dict['roll_number']
-                print('\nRoll number: ', get_single_roll_number)
+                # print('\nRoll number: ', get_single_roll_number)
 
                 # ab existing roll number me se new roll number ko check karn ahai using condition
                 if student_data['roll_number'] == get_single_roll_number:
@@ -211,6 +211,21 @@ def choose_student_update_options(school_name, class_name, student_data):
                     print('\n', message)
                     # register_new_student(school_name, class_name)
                     # return all_rn_as_dict
+
+                    # exsiting dictionary ke kisi ek value ko update karne ke liye hun fileinput library ka use karenge.
+                    import fileinput
+                    filename = 'schools/'+school_name+'/'+class_name+'/student_details.txt'
+                    with fileinput.FileInput(filename, inplace=True, backup='.bak') as f:
+                        # print('\nF ke andar ka data: ', f)
+                        # exit()
+                        for line in f:
+                            # print('\ntype of student_data: ', type(student_data))
+                            # print('\nf data: ', line);exit()
+                            if(json.dumps(student_data)+'\n' == line):
+                                print('\nline mil gai hai aage ka kam karte hain.')
+                            else:
+                                print('\nkuch gadbad ho gai hai line me hum is samay else me hain.')
+
         elif option == 2:
             print('\n elif option == 2:')
         elif option == 3:
