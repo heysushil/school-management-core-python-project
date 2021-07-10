@@ -136,7 +136,7 @@ def student_options_in_class(school_name, class_name):
         elif option == 3:
             student.update_student_detail(school_name, class_name)
         elif option == 4:
-            student.delete_student(class_name)
+            student.delete_student(school_name, class_name)
         elif option == 5:
             print('\nAdmin aap safalta purvak exit kar chuke hain.')
         else:

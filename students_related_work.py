@@ -36,7 +36,7 @@ def student_options_in_class(school_name, class_name):
         elif option == 3:
             update_student_detail(school_name, class_name)
         elif option == 4:
-            delete_student(class_name)
+            delete_student(school_name, class_name)
         elif option == 5:
             print('\nAdmin aap safalta purvak exit kar chuke hain.')
         else:
@@ -170,15 +170,14 @@ def choose_student_update_options(school_name, class_name, student_data):
     ---------------------------------
                 {} student's detail
     ---------------------------------       
-    1. Student Name  : {}          
-    2. Class Name    : {}        
-    3. Father's Name : {}           
-    4. Mother's Name : {}           
-    5. Mobile Number : {}           
-    6. Address       : {}     
+    1. Student Name  : {}                 
+    2. Father's Name : {}           
+    3. Mother's Name : {}           
+    4. Mobile Number : {}           
+    5. Address       : {}     
     -------------------------
     Only enter numbers:         
-    '''.format(student_data['name'],student_data['name'], student_data['my_class_name'], student_data['father_name'], student_data['mother_name'], student_data['mobile'], student_data['address'])
+    '''.format(student_data['name'],student_data['name'],student_data['father_name'], student_data['mother_name'], student_data['mobile'], student_data['address'])
     try:
         option = int(input(message))
     except ValueError:
@@ -199,6 +198,7 @@ def choose_student_update_options(school_name, class_name, student_data):
             # open file with write mode.
             get_studnet_details = open('schools/'+school_name+'/'+class_name+'/student_details.txt', 'r')
             get_roll_number = get_studnet_details.readlines()
+            get_studnet_details.close()
             for r in get_roll_number:
                 # print('Type: ', type(json.loads(r)))
                 all_rn_as_dict = json.loads(r)
@@ -215,34 +215,79 @@ def choose_student_update_options(school_name, class_name, student_data):
                     # exsiting dictionary ke kisi ek value ko update karne ke liye hun fileinput library ka use karenge.
                     import fileinput
                     filename = 'schools/'+school_name+'/'+class_name+'/student_details.txt'
-                    with fileinput.FileInput(filename, inplace=True, backup='.bak') as f:
+                    with fileinput.FileInput(filename, inplace=True, backup = '.bak') as f:
                         # print('\nF ke andar ka data: ', f)
                         # exit()
                         for line in f:
                             # print('\ntype of student_data: ', type(student_data))
-                            # print('\nf data: ', line);exit()
                             if(json.dumps(student_data)+'\n' == line):
-                                print('\nline mil gai hai aage ka kam karte hain.')
+                                new_data = json.dumps({"roll_number": student_data['roll_number'], "name": updated_student_name, "my_class_name": student_data['my_class_name'], "father_name": student_data['father_name'], "mother_name": student_data['mother_name'], "address": student_data['address'], "mobile": student_data['mobile']})
+                                print(new_data)
                             else:
-                                print('\nkuch gadbad ho gai hai line me hum is samay else me hain.')
+                                print(line, end='')
 
-        elif option == 2:
-            print('\n elif option == 2:')
+                        print('\nStudent name successfully udpate ho chuka hai.')
+                        student_options_in_class(school_name, class_name)
+
+        elif option == 2:            
+            updated_father_name = input('\n Enter students father name: ')            
+            import fileinput
+            filename = 'schools/'+school_name+'/'+class_name+'/student_details.txt'
+            with fileinput.FileInput(filename, inplace=True, backup = '.bak') as f:
+                # print('\nF ke andar ka data: ', f)
+                # exit()
+                for line in f:
+                    # print('\ntype of student_data: ', type(student_data))
+                    if(json.dumps(student_data)+'\n' == line):
+                        new_data = json.dumps({"roll_number": student_data['roll_number'], "name": student_data['name'], "my_class_name": student_data['my_class_name'], "father_name": updated_father_name, "mother_name": student_data['mother_name'], "address": student_data['address'], "mobile": student_data['mobile']})
+                        print(new_data)
+                    else:
+                        print(line, end='')
+
+                print('\nStudent father name successfully udpate ho chuka hai.')
+                student_options_in_class(school_name, class_name)
         elif option == 3:
-            print('\n elif option == 3:')
+            update_data = input('\n Enter students mother name: ')            
+            import fileinput
+            filename = 'schools/'+school_name+'/'+class_name+'/student_details.txt'
+            with fileinput.FileInput(filename, inplace=True, backup = '.bak') as f:
+                for line in f:                    
+                    if(json.dumps(student_data)+'\n' == line):
+                        new_data = json.dumps({"roll_number": student_data['roll_number'], "name": student_data['name'], "my_class_name": student_data['my_class_name'], "father_name": student_data['father_name'], "mother_name": update_data, "address": student_data['address'], "mobile": student_data['mobile']})
+                        print(new_data)
+                    else:
+                        print(line, end='')
+                print('\nStudent mother name successfully udpate ho chuka hai.')
+                student_options_in_class(school_name, class_name)
         elif option == 4:
-            print('\n elif option == 4:')
+            update_data = input('\n Enter students right mobile number: ')            
+            import fileinput
+            filename = 'schools/'+school_name+'/'+class_name+'/student_details.txt'
+            with fileinput.FileInput(filename, inplace=True, backup = '.bak') as f:
+                for line in f:                    
+                    if(json.dumps(student_data)+'\n' == line):
+                        new_data = json.dumps({"roll_number": student_data['roll_number'], "name": student_data['name'], "my_class_name": student_data['my_class_name'], "father_name": student_data['father_name'], "mother_name": student_data['mother_name'], "address": student_data['address'], "mobile": update_data})
+                        print(new_data)
+                    else:
+                        print(line, end='')
+                print('\nStudent mobile successfully udpate ho chuka hai.')
+                student_options_in_class(school_name, class_name)
         elif option == 5:
-            print('\n elif option == 5:')
-        elif option == 6:
-            print('\n elif option == 6:')
+            update_data = input('\n Enter students right address: ')            
+            import fileinput
+            filename = 'schools/'+school_name+'/'+class_name+'/student_details.txt'
+            with fileinput.FileInput(filename, inplace=True, backup = '.bak') as f:
+                for line in f:                    
+                    if(json.dumps(student_data)+'\n' == line):
+                        new_data = json.dumps({"roll_number": student_data['roll_number'], "name": student_data['name'], "my_class_name": student_data['my_class_name'], "father_name": student_data['father_name'], "mother_name": student_data['mother_name'], "address": update_data, "mobile": student_data['mobile']})
+                        print(new_data)
+                    else:
+                        print(line, end='')
+                print('\nStudent address successfully udpate ho chuka hai.')
+                student_options_in_class(school_name, class_name)
         else:
             print('\n sahi option nahi chuna')
-            # call choices function
-            # school_choices()
-
-            # @heysushil
-
+            student_options_in_class(school_name, class_name)
 
 # yaha par bhi ham ko sabse pahle school name aur class name cahiye hai aur sath me roll number bhi cahiye hai.
 def update_student_detail(school_name, class_name):
@@ -254,5 +299,20 @@ def update_student_detail(school_name, class_name):
     # option create karna hai ki kaunsa detail update karna hai uske liye.
     choose_student_update_options(school_name, class_name, get_student_data)
 
-def delete_student(class_name):
-    print('\ndelete_student(class_name): ', class_name)
+def delete_student(school_name, class_name):
+    student_data = check_student_detail(school_name, class_name)
+    print('\nKya get sutdent data mila: \n\n', student_data)
+    
+    # update_data = input('\n Enter students right address: ')
+    import fileinput
+    filename = 'schools/'+school_name+'/'+class_name+'/student_details.txt'
+    with fileinput.FileInput(filename, inplace=True, backup = '.bak') as f:
+        for line in f:
+            if(json.dumps(student_data)+'\n' == line):
+                print(end='')
+            else:
+                print(line, end='')
+        print('\nStudent data successfully delete ho chuka hai.')
+        student_options_in_class(school_name, class_name)
+
+# @heysushil
